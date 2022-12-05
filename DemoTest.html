@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Yourself!</title>
+    <script type="text/javascript" src="ValidateForm.js"></script>
+</head>
+<body>
+    <table border="1" >
+        <form name="DemoForm" onsubmit="return ValidateForm();" method="POST">
+            <tr>
+                <th>Conetnt type</th>
+                <th>Field</th>
+            </tr>
+            <tr>
+                <td><label for="about">Introduce Yourself:</label></td>
+                <td><textarea name="intro" id= "about"cols="50" rows="5" placeholder="Write something about yourself..."></textarea></td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Field">Intersted Field:</label>
+
+                </td>
+                <td><select name="field" id="Field">
+                    <option>IT filed</option>
+                    <option>Govt Sector</option>
+                    <option>Own Business</option>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label for="gender">Select Gender</label>
+
+                </td>
+                <td><input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label>
+                   
+                </td>
+                <tr>
+                    <td>
+                        <label for="gender">Select Hobby:</label>
+    
+                    </td>
+                    <td><input type="checkbox" id="cricket" name="cricket" value="cricket">
+                        <label for="male">cricket</label>
+                        <input type="checkbox" id="Music" name="music" value="music">
+                        <label for="Music">Music</label>
+                        <input type="checkbox" id="Coding" name="coding" value="coding">
+                        <label for="Coding">Coding</label>
+                        <input type="checkbox" id="Travel" name="coding" value="coding">
+                        <label for="Travel">Travel</label>
+                    </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit"> </td>
+            </tr>
+        </form>
+
+    </table>
+        
+    
+</body>
+</html>
