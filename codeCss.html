@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Form</title>
+    <script type="text/javascript">
+        function validateForm()
+        {
+            var fname = document.getElementById("FristName").value;
+            if(document.applicationForm.fname.value=="")
+            {
+                alert("Please Enter First Name!");
+                document.applicationForm.fname.focus();
+                return false;
+            }
+            
+            var lname = document.getElementById("LastName").value;
+            
+            if(document.applicationForm.lname.value=="")
+            {
+                alert("Please Enter Last Name!");
+                document.applicationForm.lname.focus();
+                return false;
+            }
+            
+            
+            var flag= confirm("Do you want to submit?");
+            if(flag==true)
+            {
+                alert("Details Saved Successfully!");
+            }
+            else{
+                document.applicationForm.fname.focus();
+                return false;
+            }
+        }
+
+    </script>
+    <style>
+        body{
+            background-image: url("C:/Users/924570/OneDrive-Cognizant/Desktop/TRAINING/Material/Images/image1.png");
+            width: auto;
+            height: auto;
+        }
+        h2{
+            background-color:rgb(49, 211, 84);
+            text-align: center;
+        }
+        #PDI{
+            color: red;
+            text-decoration: underline;
+        }
+        .position{
+            text-align: center;
+            background-color: lightblue;
+            margin-left: auto;
+            margin-right: 390px;
+        }
+        #para{
+            color: blue;
+
+        }
+        .foot{
+            background-color: antiquewhite;
+            margin-top: 10px;
+            height: 25px;
+            padding-top: 5px;
+
+        }
+        .aside{
+            margin-top: 55px;
+            margin-left: 30px; 
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 310px;
+            width: 260px;
+            float: left;
+            background-color: lightgray;
+            border-radius: 1em;
+        }
+        .aside1{
+           margin-top: 2mm;
+            margin-left: 10px; 
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 100px;
+            width: 300px;
+            color:black;
+            background-color: white;
+            border-style: dotted;
+            border-radius: .5em;
+        }
+        
+        .article{
+            margin-top: 10px;
+            margin-right: 5px; 
+            padding-left: 15px;
+            padding-right: 10px;
+            height: 425px;
+            width: 350px;
+            float: right;
+            color:blue;
+            background-color: lightgoldenrodyellow;
+            border: rgb(6, 7, 8);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            letter-spacing: 1px;
+            line-height: 10px;
+            border-style:groove;
+            border-radius: 1em;
+        }
+        .nav{
+            background-color: black;
+            height: 1.5em;
+            padding-top: 3px;
+            padding-left: 10px;   
+                              
+        }
+        a:link{
+            color: white;
+            background-color: transparent;
+            text-decoration: none;
+            padding-right: 8px;
+            
+        }
+        a:hover{
+            color:red;
+            background-color: transparent;
+            text-decoration: none;
+        }
+       a:active{
+            color:blue;
+            background-color: transparent;
+            text-decoration: none;
+        }
+        a:visited{
+            color:green;
+            background-color: transparent;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <nav class="nav"> 
+        
+        <a href="https://www.google.com">Google</a>
+        <a href="https://www.microsoft.com">Microsoft</a>
+        <a href="https://www.cognizant.com">Cognizant</a>
+        
+    </nav>
+    </header>
+    <h2>Fill the Exam Application form</h2>
+   
+    <table class="position" border="1" bordercolor="blue" background="pink" height="300px" width="500px">
+        <form name="applicationForm" action="" onsubmit="return validateForm()" method="POST" >
+            <tr>
+                <th>Content</th>
+                <th>Field</th>
+            </tr>
+            <tr>
+                <td><label for="FristName">First Name (*)</label></td>
+                <td><input type="text" id="FristName" name="fname" placeholder=" Enter First Name"></td>
+            </tr>
+            <tr>
+                <td><label for="LastName">Last Name (*)</label></td>
+                <td><input type="text" id="LastName" name="lname" placeholder=" Enter Last Name"></td>
+            </tr>
+            <tr>
+                <td><label for="Number">Phone Number</label></td>
+                <td><input type="number" id="Number" placeholder="Enter Mobile Number"></td>
+            </tr>
+                <td><label for="gender">Gender</label></td>
+                <td>
+                    <input type="radio" id="male" name="Gender" value="male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="Gender" value="female">
+                    <label for="female">Female</label></td>
+            </tr>
+            <tr>
+                <td><label for="Email">E-mail</label></td>
+                <td><input type="email" id="Email" placeholder="example@username.com"></td>
+            </tr>
+            <tr>
+                <td><label for="company">Select Company</label></td>
+                <td><select name="company" id="company" >
+                <option value="Select">Select..</option>
+                <option value="Cognizant">Cognizant</option>
+                <option value="Google">Google</option>
+                <option value="Microsoft">Microsoft</option>
+                <option value="Oracle">Oracle</option>
+                <option value="Apple">Apple</option>
+            </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="hobby">Select Hobby</label></td>
+                <td><input type="checkbox" id="Cricket">
+                    <label for="Cricket">Cricket</label>
+
+                    <input type="checkbox" id="Football">
+                    <label for="Football">Football</label>
+
+                    <input type="checkbox" id="Coding">
+                    <label for="Coding">Coding</label>
+
+                    <input type="checkbox" id="Music">
+                    <label for="Music">Music</label>
+                </td>
+            </tr>
+            <tr>
+                <td>Captcha</td>
+                <td>
+                    <ul >
+                        <li>Ct56PYeX</li>
+                        <li>8Wm6PUiO</li>
+                        <li>Ghq91McP</li>
+                    </ul>
+                </td>
+            <tr>
+                <td><label for="captcha">Enter Captcha</label></td>
+                <td><input type="text" id="captcha"></td>
+            </tr>
+            </tr>
+            <tr>
+                <td><label for="address">Address</label></td>
+                <td><textarea rows= "5" cols = "40"></textarea></td>
+            </tr>
+            <tr>
+                <td> </td>
+                <td> <input type="submit" value="submit"></td>
+            </tr>
+
+        </form>
+        <aside class="aside">
+            <h1 id="PDI">Dear Priya Di! &heartsuit; &smile; &hearts;</h1>
+            <p id="para">You are a best and caring daughter of your parents, supportive sister of your brothers, 
+                An awesome Inspiration to your cousins, best and understading and helpful person to 
+                relatives and neighbours and</br>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp; &nbsp;&nbsp;&nbsp; and</br> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp; &nbsp;&nbsp;&nbsp; and</br>
+                A very pure and beautiful soul on this planet!
+                Thank you so much for being with me as my sister, and always be there with me. &hearts; 
+            </br> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp; &nbsp;&nbsp;&nbsp; ~Bhuvi </br>
+            </p>
+        </aside>
+
+        <article class="article">
+            <h1>Cognizant Diary </h1>
+            <aside class="aside1">
+                <h3 style="color: green;">Article 1</h3>
+                <p>Hi Bhuvneshwar, this is Article 1.
+                   
+            </p>
+            </aside>
+            <aside class="aside1">
+                <h3 style="color: blue;">Article 2</h3>
+                <p>Hey Bhuvi, this is article 2.
+                   
+            </p>
+            </aside>
+            <aside class="aside1">
+                <h3 style="color:red;">Article 3</h3>
+                <p>Hola Boss, It's Article 3.
+                   
+            </p>
+            </aside>
+        </article>
+
+       
+    </table>
+                
+    
+<footer class="foot">©2022 BM Sharma, all rights reserved.</footer>
+    
+</body>
+</html>
