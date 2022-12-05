@@ -1,0 +1,248 @@
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using Code_First_MVC_Revision.Models;
+
+namespace Code_First_MVC_Revision.Controllers
+{
+    public class EmployeesController : Controller
+    {
+        private StoreContext db = new StoreContext();
+
+        // GET: Employees
+        public ActionResult Index()
+        {
+            var employees = db.Employees.Include(e => e.Department);
+            return View(employees.ToList());
+        }
+
+        // GET: Employees/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Employee employee = db.Employees.Find(id);
+            if (employee == null)
+            {
+                return HttpNotFound();
+            }
+            return View(employee);
+        }
+
+        // GET: Employees/Create
+        public ActionResult Create()
+        {
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Dept_Name");
+            return View();
+        }
+
+        // POST: Employees/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,Age,Salary,DepartmentId,Address")] Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Employees.Add(employee);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Dept_Name", employee.DepartmentId);
+            return View(employee);
+        }
+
+        // GET: Employees/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Employee employee = db.Employees.Find(id);
+            if (employee == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Dept_Name", employee.DepartmentId);
+            return View(employee);
+        }
+
+        // POST: Employees/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Name,Age,Salary,DepartmentId,Address")] Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(employee).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Dept_Name", employee.DepartmentId);
+            return View(employee);
+        }
+
+        // GET: Employees/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Employee employee = db.Employees.Find(id);
+            if (employee == null)
+            {
+                return HttpNotFound();
+            }
+            return View(employee);
+        }
+
+        // POST: Employees/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Employee employee = db.Employees.Find(id);
+            db.Employees.Remove(employee);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}
+
+================================================================================
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+
+namespace DB_First_MVC.Controllers
+{
+    public class DbFirstController : Controller
+    {
+        DbFirstTableEntities context;
+        public DbFirstController()
+        {
+            context = new DbFirstTableEntities();
+        }
+
+        // GET: DbFirst
+        public ActionResult Index()
+        {
+            var listOfProducts = context.Products.ToList();
+            return View(listOfProducts);
+        }
+
+        public ActionResult Search(string search)
+        {
+            if (search == "")
+                return RedirectToAction("Index");
+
+
+            var listOfProducts = from list in context.Products
+                                 where list.Name.Contains(search)
+                                 select list;
+
+            //var matchingProducts = context.Products.Where(p => p.Name.Contains(search));
+            //return View("Index", matchingProducts);
+
+            //OR
+
+            /*var list = new List<Product>();
+
+            foreach (var item in listOfProducts)
+            {
+                if (item.Name.Equals(search))
+                {
+                    list.Add(item);
+                }
+            }*/
+
+            return View("Index",listOfProducts);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id <= 0)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+             var product = context.Products.Find(id);
+            if(product == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("Create", product);
+        }
+        
+        public ActionResult Create()
+        {
+            return View(new Product { Id = 0 });
+        }
+
+        [HttpPost]
+        public ActionResult Create(Product product)
+        {
+            if(ModelState.IsValid)
+            {
+                if (product.Id > 0)
+                {
+                    context.Entry(product).State = System.Data.Entity.EntityState.Modified;
+                }
+                else
+                    context.Products.Add(product);
+                    
+
+                context.SaveChanges();
+                return RedirectToAction("Create");
+            }
+            return View("Index", product);
+        }
+        public ActionResult Delete(int? id)
+        {
+            if(id<=0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var row = context.Products.Find(id);
+            if(row== null)
+            {
+                return HttpNotFound();
+            }
+            context.Products.Remove(row);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+                context.Dispose();
+
+            base.Dispose(disposing);
+        }
+
+    }
+}
